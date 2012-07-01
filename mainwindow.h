@@ -38,23 +38,55 @@
 **
 ****************************************************************************/
 
-#include <QApplication>
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
 
-#include "mainwindow.h"
+#include <QList>
+#include <QMainWindow>
 
-int main(int argc, char *argv[])
+class ScribbleArea;
+
+//! [0]
+class MainWindow : public QMainWindow
 {
-    QApplication app(argc, argv);
-    MainWindow window;
-//#if defined(Q_OS_SYMBIAN)
-//    window.showMaximized();
-//#else
-    window.show();
-//#endif
-    return app.exec();
-}
-<<<<<<< HEAD
+    Q_OBJECT
 
-//master test
-=======
->>>>>>> b46ecc731546f1a5dd975d02004a77baa94f71e7
+public:
+    MainWindow();
+
+protected:
+    void closeEvent(QCloseEvent *event);
+
+private slots:
+    void open();
+    void save();
+    void penColor();
+    void penWidth();
+    void about();
+
+private:
+    void createActions();
+    void createMenus();
+    bool maybeSave();
+    bool saveFile(const QByteArray &fileFormat);
+
+    ScribbleArea *scribbleArea;
+
+    QMenu *saveAsMenu;
+    QMenu *fileMenu;
+    QMenu *optionMenu;
+    QMenu *helpMenu;
+
+    QAction *openAct;
+    QList<QAction *> saveAsActs;
+    QAction *exitAct;
+    QAction *penColorAct;
+    QAction *penWidthAct;
+    QAction *printAct;
+    QAction *clearScreenAct;
+    QAction *aboutAct;
+    QAction *aboutQtAct;
+};
+//! [0]
+
+#endif
